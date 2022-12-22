@@ -17,7 +17,8 @@ const authRoute = require("./routes/user/auth");
 app.use("/auth", authRoute);
 const petRoute = require("./routes/pets/addPets");
 app.use("/data", petRoute);
-
+const viewRoute = require("./routes/pets/returnAll");
+app.use("/return", viewRoute);
 app.route("/").get((req, res) => res.json("hello World"));
 
 app.listen(5000, () => console.log("app started on", Port));
