@@ -4,7 +4,6 @@ const Port = process.env.port || 5000;
 
 const app = express();
 mongoose.set("strictQuery", true);
-const pass = "Ydd9r1C02Z2CnOCB";
 
 const connection = mongoose.connection;
 connection.once("open", () => {
