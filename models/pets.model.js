@@ -29,7 +29,7 @@ const Pets = Schema({
     unique: false,
   },
   location: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
   },
