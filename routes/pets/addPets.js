@@ -32,7 +32,7 @@ router.route("/add").post((req, res) => {
 
   pet.save((err) => {
     if (err) {
-      return res.status(500).json({ msg: err });
+      return res.status(500).json({ msg: "err" });
     }
     console.log("Data entry success");
     res.status(200).json("OK");

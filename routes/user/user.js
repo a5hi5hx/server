@@ -34,7 +34,7 @@ router.route("/update").patch(async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "Invalid username" });
     }
-    const hashedoldPassword = await bcrypt.hash(req.body.password, 10);
+    //const hashedoldPassword = await bcrypt.hash(req.body.password, 10);
     const validPassword = await bcrypt.compare(
       req.body.oldPassword,
       user.password
