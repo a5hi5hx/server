@@ -1,10 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const Port = process.env.port || 5000;
-
 const app = express();
 mongoose.set("strictQuery", true);
-
+mongoose
+  .connect(process.env.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.log(error));
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("mongodb connected");
