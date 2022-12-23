@@ -4,11 +4,23 @@ require("dotenv").config();
 const Port = process.env.port || 5000;
 const app = express();
 mongoose.set("strictQuery", true);
+<<<<<<< HEAD
 mongoose
   .connect(process.env.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
+=======
+const pass = "Ydd9r1C02Z2CnOCB";
+mongoose
+  .connect(
+    "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+>>>>>>> 51c056c4588140f1685b7e18fb0d6701d730bafc
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.log(error));
 const connection = mongoose.connection;
