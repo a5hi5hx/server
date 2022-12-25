@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 mongoose.set("strictQuery", true);
+<<<<<<< HEAD
 //const url = process.env.url;
 // mongoose
 //   .connect(
@@ -30,6 +31,21 @@ const connectDB = async () => {
   }
 };
 
+=======
+mongoose
+  .connect(process.env.url
+//            {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }
+          )
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.log(error));
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("mongodb connected");
+});
+>>>>>>> c36b1c58e9ad6d2a8ccb2d97b09ea1b57497dfd3
 //middlewares
 app.use(express.json());
 const userRoute = require("./routes/user/user");
