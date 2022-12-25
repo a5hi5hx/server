@@ -71,3 +71,9 @@ connectDB().then(() => {
     console.log("listening for requests");
   });
 });
+
+// "scripts": {
+//   "test": "echo \"Error: no test specified\" && exit 1",
+//   "start": "node index",
+//   "dev": "nodemon index"
+// },
