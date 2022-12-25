@@ -27,6 +27,10 @@ const viewRoute = require("./routes/pets/returnAll");
 app.use("/return", viewRoute);
 const modifyRoute = require("./routes/pets/modify");
 app.use("/edit", modifyRoute);
+const bookRoute = require("./routes/pets/bookPets");
+app.use("/bookings", bookRoute);
+const userdetail = require("./routes/user/userDetails");
+app.use("/user", userdetail);
 app.route("/").get((req, res) => res.json("hello World"));
 
 app.listen(5000, () => console.log("app started on", Port));

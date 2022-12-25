@@ -15,7 +15,7 @@ const Booking = Schema({
   },
   mobile: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   address: {
@@ -23,19 +23,21 @@ const Booking = Schema({
     required: true,
     unique: true,
   },
-  username: {
+  date: {
     type: String,
+    required: true,
+    unique: false,
+  },
+  time: {
+    type: String,
+    required: true,
+    unique: false,
+  },
+  pid: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     unique: true,
   },
-  Date: {
-    type: Date,
-    required: true,
-    unique: false,
-  },
-  Time: {
-    type: Date,
-    required: true,
-    unique: false,
-  },
 });
+
+module.exports = mongoose.model("Booking", Booking);
