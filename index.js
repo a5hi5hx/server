@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const uri =
+  "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority";
 mongoose.set("strictQuery", true);
 // <<<<<<< HEAD
 //const url = process.env.url;
@@ -23,7 +24,7 @@ mongoose.set("strictQuery", true);
 // });
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.url, {
+    const conn = await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
