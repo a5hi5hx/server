@@ -1,20 +1,35 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const Port = process.env.port || 5000;
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 mongoose.set("strictQuery", true);
-mongoose
-  .connect(process.env.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((error) => console.log(error));
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("mongodb connected");
-});
+//const url = process.env.url;
+// mongoose
+//   .connect(
+//     process.env.url
+//     //    {
+//     //   // useNewUrlParser: true,
+//     //   // useUnifiedTopology: true,
+//     // }
+//   )
+//   .then(() => console.log("Connected to MongoDB"))
+//   .catch((error) => console.log(error));
+// const connection = mongoose.connection;
+// connection.once("open", () => {
+//   console.log("mongodb connected");
+// });
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.url);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
 //middlewares
 app.use(express.json());
 const userRoute = require("./routes/user/user");
@@ -33,4 +48,9 @@ const userdetail = require("./routes/user/userDetails");
 app.use("/user", userdetail);
 app.route("/").get((req, res) => res.json("hello World"));
 
-app.listen(5000, () => console.log("app started on", Port));
+// app.listen(5000, () => console.log("app started on", Port));
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
+  });
+});
