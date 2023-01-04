@@ -15,8 +15,11 @@ router.route("/viewall").get((req, res) => {
   //   });
 
   Pets.find({}, (err, result) => {
-    if (err) throw err;
-    res.json(result);
+    if (err) {
+      throw err;
+    } else {
+      res.json(result);
+    }
   });
 });
 

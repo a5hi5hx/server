@@ -11,6 +11,7 @@ router.route("/add").post((req, res) => {
 
   // Validate request body
   if (
+    !req.body.uid ||
     !req.body.nickname ||
     !req.body.breed ||
     !req.body.age ||
@@ -22,6 +23,7 @@ router.route("/add").post((req, res) => {
   }
   //after validated fields
   const pet = new Pets({
+    uid: req.body.uid,
     nickname: req.body.nickname,
     breed: req.body.breed,
     age: req.body.age,

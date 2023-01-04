@@ -2,25 +2,20 @@ const express = require("express");
 const Booking = require("../../models/book.model");
 
 const router = express.Router();
-router.route("/enterdetails").post(async (req, res) => {
+router.route("/book").post(async (req, res) => {
   console.log("inside booking");
 
-  // Validate request body
-  if (!req.body.name || !req.body.phone || !req.body.date || !req.body.time) {
+  //validate request body
+  if (!req.body.uid || !req.body.pid) {
     return res.status(400).json({ msg: "Missing required fields" });
   }
-  //after validated fields
-  const bookDetails = new Booking({
-    name: req.body.name,
-    phone: req.body.phone,
-    mobile: req.body.mobile,
-    address: req.body.address,
-    date: req.body.date,
+  const bookP = new Booking({
+    uid: req.body.uid,
+    pid: req.body.pid,
     time: req.body.time,
-    //pid: req.body.id,
+    date: req.body.date,
   });
-  //await bookDetails.save();
-  await bookDetails.save((err, result) => {
+  await bookP.save((err, result) => {
     if (err) {
       return res.status(500).json({ msg: "err booking" });
     } else {

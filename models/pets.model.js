@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const Pets = Schema({
   //_id: { type: String },
+  uid: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    unique: false,
+  },
   nickname: {
     type: String,
     required: true,
