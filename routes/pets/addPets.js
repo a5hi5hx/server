@@ -17,7 +17,8 @@ router.route("/add").post((req, res) => {
     !req.body.age ||
     !req.body.weight ||
     !req.body.color ||
-    !req.body.location
+    !req.body.location ||
+    !req.body.image
   ) {
     return res.status(400).json({ msg: "Missing required fields" });
   }
@@ -30,6 +31,7 @@ router.route("/add").post((req, res) => {
     weight: req.body.weight,
     color: req.body.color,
     location: req.body.location,
+    image: req.body.image,
   });
 
   pet.save((err) => {

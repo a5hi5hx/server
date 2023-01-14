@@ -5,7 +5,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const uri =
   "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority";
+//const uri = process.env.url;
 mongoose.set("strictQuery", true);
+
 // <<<<<<< HEAD
 //const url = process.env.url;
 // mongoose
@@ -71,6 +73,8 @@ const bookReturnRoute = require("./routes/book/returnBookDetails");
 app.use("/returnall", bookReturnRoute);
 const userdetail = require("./routes/user/userDetails");
 app.use("/user", userdetail);
+const addpetsdetail = require("./routes/pets/img");
+app.use("/addpets", addpetsdetail);
 app.route("/").get((req, res) => res.json("hello World"));
 
 // app.listen(5000, () => console.log("app started on", Port));

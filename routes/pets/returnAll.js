@@ -23,4 +23,10 @@ router.route("/viewall").get((req, res) => {
   });
 });
 
+// router.get('/pets', (req, res) => {
+//   Pets.find()
+//     .then(pets => res.json(pets))
+//     .catch(error => res.status(500).json({ message: error.message }));
+// });
+
 module.exports = router;

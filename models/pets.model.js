@@ -39,6 +39,10 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
+  image: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Pets", Pets);
