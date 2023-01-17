@@ -96,9 +96,8 @@ router.route("/login").post((req, res) => {
       //   if (err) {
       //     return res.status(500).json({ msg: err });
       //   }
-
-      console.log("login success");
       res.status(200).json({ userId: User._id });
+      console.log("login success");
     });
   });
 });
