@@ -85,20 +85,20 @@ router.route("/login").post((req, res) => {
       console.log("passwords match");
 
       // Generate JWT
-      const payload = {
-        id: User._id,
-        username: User.username,
-      };
-      const options = {
-        expiresIn: "1d",
-      };
-      jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
-        if (err) {
-          return res.status(500).json({ msg: err });
-        }
+      // const payload = {
+      //   id: User._id,
+      //   username: User.username,
+      // };
+      // const options = {
+      //   expiresIn: "1d",
+      // };
+      // jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+      //   if (err) {
+      //     return res.status(500).json({ msg: err });
+      //   }
 
         console.log("login success");
-        res.status(200).json({ token: token });
+        res.status(200).json({"userId": User._id});
       });
     });
   });
