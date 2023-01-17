@@ -86,8 +86,8 @@ router.route("/login").post((req, res) => {
 
       // Generate JWT
       const payload = {
-        id: user._id,
-        username: user.username,
+        id: User._id,
+        username: User.username,
       };
       const options = {
         expiresIn: "1d",
