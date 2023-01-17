@@ -8,25 +8,9 @@ const uri =
 //const uri = process.env.url;
 mongoose.set("strictQuery", true);
 
-// <<<<<<< HEAD
-//const url = process.env.url;
-// mongoose
-//   .connect(
-//     process.env.url
-//     //    {
-//     //   // useNewUrlParser: true,
-//     //   // useUnifiedTopology: true,
-//     // }
-//   )
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((error) => console.log(error));
-// const connection = mongoose.connection;
-// connection.once("open", () => {
-//   console.log("mongodb connected");
-// });
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(uri, {
+    const conn = await mongoose.connect(process.env.URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -36,22 +20,6 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
-// =======
-// mongoose
-//   .connect(process.env.url
-// //            {
-// //     useNewUrlParser: true,
-// //     useUnifiedTopology: true,
-// //   }
-//           )
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((error) => console.log(error));
-// const connection = mongoose.connection;
-// connection.once("open", () => {
-//   console.log("mongodb connected");
-// });
-// >>>>>>> c36b1c58e9ad6d2a8ccb2d97b09ea1b57497dfd3
 
 //middlewares
 app.use(express.json());

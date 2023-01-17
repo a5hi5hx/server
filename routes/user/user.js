@@ -48,7 +48,7 @@ router.route("/update").patch(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-    // Update the password
+    // Update the passwordgit push
     const result = await User.findOneAndUpdate(
       { username: req.body.username }, // Only allow the authenticated user to update their own password
       { $set: { password: hashedPassword } }
