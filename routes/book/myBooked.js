@@ -27,3 +27,13 @@ async function findBookedPets(uid) {
   }
 }
 module.exports = router;
+
+// router.post("/findbookedpets", async (req, res) => {
+//   try {
+//       const { userId } = req.body;
+//       const bookedPets = await Pet.find({ user: userId, booked: true });
+//       res.json({ bookedPets });
+//   } catch (err) {
+//       res.status(500).json({ message: "Error finding booked pets", error: err });
+//   }
+// });
