@@ -20,12 +20,12 @@ const Pets = Schema({
     unique: false,
   },
   age: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
   },
   weight: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
   },
