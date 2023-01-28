@@ -7,6 +7,7 @@ const User = Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -16,6 +17,15 @@ const User = Schema({
     type: String,
     unique: true,
     required: true,
+    trim: true,
+    validate: {
+      validator: (value) => {
+        const re =
+          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return value.match(re);
+      },
+      message: "please enter valid email address",
+    },
   },
 });
 
