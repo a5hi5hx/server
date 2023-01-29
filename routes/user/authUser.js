@@ -44,21 +44,21 @@ router.route("/signin").post(async (req, res) => {
     const { id, username, email, password } = req.body;
     console.log("inside register");
 
-    const uuser = await User.findOne({ username });
-    if (!uuser) {
+    const user = await User.findOne({ username });
+    if (!user) {
       return res
         .status(400)
         .json({ msg: "User with this username doesnt exists." });
     }
     console.log("inside register");
 
-    const isMatch = bcrypt.compare(password, uuser.password);
+    const isMatch = bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Password Incorrect" });
     }
 
-    const token = jwt.sign({ id: uuser._id }, "passwordKey");
-    return res.status(200).json({ token, ...uuser._doc });
+    const token = jwt.sign({ id: user._id }, "passwordKey");
+    return res.status(200).json({ token, ...user._doc });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
