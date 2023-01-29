@@ -10,24 +10,24 @@ const PORT = process.env.PORT || 5000;
 //const app = express();
 
 //signup route
-router.route("/signup").post((req, res) => {
+router.route("/signup").post(async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, password, email } = req.body;
 
-    const existingUser = User.findOne({ $or: [{ email, username }] });
+    const existingUser = await User.findOne({ $or: [{ email, username }] });
 
     if (existingUser) {
       return res.status(400).json({ msg: "User exists" });
     }
 
-    const hashedPassword = bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     let user = new User({
       username,
       password: hashedPassword,
       email,
     });
-    user = user.save();
+    user = await user.save();
     res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
