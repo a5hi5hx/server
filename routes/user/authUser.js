@@ -6,6 +6,7 @@ const User = require("../../models/users.model");
 
 const authrouter = express.Router();
 const PORT = process.env.PORT || 5000;
+const router = express.Router();
 
 //const app = express();
 
@@ -80,4 +81,5 @@ router.route("/user").get(auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({ ...user._doc, token: req.token });
 });
+
 module.exports = authrouter;
