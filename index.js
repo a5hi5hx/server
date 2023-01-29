@@ -27,8 +27,7 @@ const userRoute = require("./routes/user/user");
 app.use("/user", userRoute);
 const authRoute = require("./routes/user/auth");
 app.use("/auth", authRoute);
-const authRoute = require("./routes/user/auth");
-app.use("/auth", authRoute);
+
 const authUserRoute = require("./routes/user/auth");
 app.use("/authuser", authUserRoute);
 const petRoute = require("./routes/pets/addPets");
