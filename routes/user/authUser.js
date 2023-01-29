@@ -58,7 +58,7 @@ router.route("/signin").post(async (req, res) => {
     }
 
     const token = jwt.sign({ id: uuser._id }, "passwordKey");
-    return res.json({ token, uuser });
+    return res.status(200).json({ token, ...uuser._doc });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
