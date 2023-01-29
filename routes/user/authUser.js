@@ -58,11 +58,12 @@ router.route("/signin").post(async (req, res) => {
     }
 
     const token = jwt.sign({ id: uuser._id }, "passwordKey");
-    return res.json({ token, ...uuser._doc });
+    return res.json({ token, uuser });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
+
 router.route("/tokenValid").get(async (req, res) => {
   try {
     const token = req.header("x-auth-token");
