@@ -41,7 +41,8 @@ router.route("/signup").post(async (req, res) => {
 
 router.route("/signin").post(async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { id, username, email, password } = req.body;
+    console.log("inside register");
 
     const uuser = await User.findOne({ username });
     if (!uuser) {
@@ -49,6 +50,8 @@ router.route("/signin").post(async (req, res) => {
         .status(400)
         .json({ msg: "User with this username doesnt exists." });
     }
+    console.log("inside register");
+
     const isMatch = bcrypt.compare(password, uuser.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Password Incorrect" });
