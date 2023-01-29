@@ -69,15 +69,15 @@ router.route("/tokenValid").get(async (req, res) => {
     const token = req.header("x-auth-token");
 
     if (!token) {
-      return res.json("false");
+      return res.json(false);
     }
     const verified = jwt.verify(token, "passwordKey");
     if (!verified) {
-      return res.json("false");
+      return res.json(false);
     }
     const user = await User.findById(verified.id);
     if (!verified) {
-      return res.json("false");
+      return res.json(false);
     }
     return res.json(true);
   } catch (err) {
