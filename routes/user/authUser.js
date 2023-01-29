@@ -17,7 +17,7 @@ router.route("/signup").post(async (req, res) => {
   try {
     console.log("inside register");
 
-    const { username, password, email } = req.body;
+    const { id, username, email, token, password } = req.body;
 
     const existingUser = await User.findOne({ $or: [{ email, username }] });
 
