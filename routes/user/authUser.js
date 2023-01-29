@@ -43,7 +43,7 @@ router.route("/signin").post(async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const uuser = await User.findOne({ email, username });
+    const uuser = await User.findOne({ username });
     if (!uuser) {
       return res
         .status(400)
