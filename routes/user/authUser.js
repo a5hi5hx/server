@@ -5,14 +5,18 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/users.model");
 
 const authrouter = express.Router();
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
 const router = express.Router();
 
 //const app = express();
 
 //signup route
 router.route("/signup").post(async (req, res) => {
+  console.log("inside register");
+
   try {
+    console.log("inside register");
+
     const { username, password, email } = req.body;
 
     const existingUser = await User.findOne({ $or: [{ email, username }] });
@@ -82,4 +86,4 @@ router.route("/user").get(auth, async (req, res) => {
   res.json({ ...user._doc, token: req.token });
 });
 
-module.exports = authrouter;
+module.exports = router;
