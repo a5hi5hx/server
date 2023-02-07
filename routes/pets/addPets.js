@@ -17,7 +17,8 @@ cloudinary.config({
 
 // Add pet route
 router.route("/add").post(upload.single("image"), async (req, res) => {
-  const { uid, nickname, breed, age, weight, color, location } = req.body;
+  const { uid, nickname, breed, age, weight, health, color, location } =
+    req.body;
   const image = req.file;
   const bookedFlag = false;
   // Simple validation
@@ -41,6 +42,7 @@ router.route("/add").post(upload.single("image"), async (req, res) => {
             breed,
             age,
             weight,
+            health,
             color,
             location,
             image: result.url,
