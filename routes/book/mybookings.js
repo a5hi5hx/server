@@ -18,7 +18,7 @@ router.get("/mybookings", async (req, res) => {
   }
 });
 
-router.get("/mypetsbookings", async (req, res) => {
+router.post("/mypetsbookings", async (req, res) => {
   const userId = req.body.userId;
 
   try {
