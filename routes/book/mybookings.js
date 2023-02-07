@@ -18,8 +18,8 @@ router.get("/mybookings", async (req, res) => {
   }
 });
 
-router.post("/mypetsbookings", async (req, res) => {
-  const userId = req.body.userId;
+router.get("/mypetsbookings", async (req, res) => {
+  const { userId } = req.query;
 
   try {
     const pets = await Pets.find({ uid: userId });
