@@ -19,7 +19,7 @@ router.get("/mybookings", async (req, res) => {
 });
 
 router.get("/mypetsbookings", async (req, res) => {
-  const userId = req.query.userId;
+  const userId = req.body.userId;
 
   try {
     const pets = await Pets.find({ uid: userId });
