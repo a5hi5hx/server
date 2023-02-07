@@ -6,7 +6,7 @@ const router = express.Router();
 router.route("/viewall").get((req, res) => {
   console.log("inside viewall");
 
-  Pets.find({}, (err, result) => {
+  Pets.find({ bookedFlag: "false" }, (err, result) => {
     if (err) {
       throw err;
     } else {

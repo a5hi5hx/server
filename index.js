@@ -23,31 +23,18 @@ const connectDB = async () => {
 
 //middlewares
 app.use(express.json());
-const userRoute = require("./routes/user/user");
-app.use("/user", userRoute);
-const authRoute = require("./routes/user/auth");
-app.use("/auth", authRoute);
 
 const authUserRoute = require("./routes/user/authUser");
 app.use("/authuser", authUserRoute);
-const petRoute = require("./routes/pets/addPets");
-app.use("/data", petRoute);
 const viewRoute = require("./routes/pets/returnAll");
 app.use("/returnpets", viewRoute);
-const modifyRoute = require("./routes/pets/modify");
-app.use("/edit", modifyRoute);
-// const bookRoute = require("./routes/book/bookPets");
-// app.use("/book", bookRoute);
-const bookShowRoute = require("./routes/book/returnBookDetails");
-app.use("/bookings", bookShowRoute);
-const bookReturnRoute = require("./routes/book/returnBookDetails");
-app.use("/returnall", bookReturnRoute);
-const userdetail = require("./routes/user/userDetails");
-app.use("/user", userdetail);
-const addpetsdetail = require("./routes/pets/img");
+const addpetsdetail = require("./routes/pets/addpets");
 app.use("/addpets", addpetsdetail);
-app.route("/").get((req, res) => res.json("hello World"));
-
+app.route("/").get((req, res) => res.json("You are connected to Server."));
+const bookRoute = require("./routes/book/booking");
+app.use("/book", bookRoute);
+const mybookings = require("./routes/book/mybookings");
+app.use("/list", mybookings);
 // app.listen(5000, () => console.log("app started on", Port));
 connectDB().then(() => {
   app.listen(PORT, () => {

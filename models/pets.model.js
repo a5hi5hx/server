@@ -3,9 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Pets = Schema({
-  //_id: { type: String },
   uid: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true,
     unique: false,
   },
@@ -14,6 +13,7 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
+
   breed: {
     type: String,
     required: true,
@@ -25,6 +25,11 @@ const Pets = Schema({
     unique: false,
   },
   weight: {
+    type: String,
+    required: true,
+    unique: false,
+  },
+  health: {
     type: String,
     required: true,
     unique: false,
@@ -42,6 +47,10 @@ const Pets = Schema({
   image: {
     type: String,
     required: true,
+  },
+  bookedFlag: {
+    type: String,
+    unique: false,
   },
 });
 
