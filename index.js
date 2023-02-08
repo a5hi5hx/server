@@ -28,7 +28,8 @@ const authUserRoute = require("./routes/user/authUser");
 app.use("/authuser", authUserRoute);
 const viewRoute = require("./routes/pets/returnAll");
 app.use("/returnpets", viewRoute);
-
+const addRR = require("./routes/pets/add");
+app.use("/add", addRR);
 app.route("/").get((req, res) => res.json("You are connected to Server."));
 const bookRoute = require("./routes/book/booking");
 app.use("/book", bookRoute);

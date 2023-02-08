@@ -3,27 +3,17 @@ const router = express.Router();
 const Booking = require("../../models/book.model");
 
 router.get("/mybookings", async (req, res) => {
+  const userId = req.user._id;
   try {
-    // Get the uid from the request query
-    const uid = req.body.uid;
-
-    // Find the booked pets
-    const bookedPets = await findBookedPets(uid);
-
-    res.send(bookedPets);
-  } catch (error) {
-    console.error(error);
+    const bookings = await Booking.find({ user: userId });
+    const pets = await Promise.all(
+      bookings.map(async (booking) => {
+        return await Pet.findById(booking.pet);
+      })
+    );
+    res.json({ bookings, pets });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
-async function findBookedPets(uid) {
-  try {
-    // Find all bookings in the Bookings collection where the uid is not the given uid
-    const bookings = await Booking.find({ userID: { uid } });
-
-    res.json(bookings);
-  } catch (error) {
-    res.json({ msg: error.message });
-    console.error(error);
-  }
-}
 module.exports = router;

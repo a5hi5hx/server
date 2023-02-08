@@ -28,6 +28,10 @@ router.post("/bookPets", async (req, res) => {
           res.json({ msg: "Booking Successful" });
         }
       } else {
+        const changestatus = await Pets.findByIdAndUpdate(
+          { _id: petID },
+          { $set: { bookedFlag: "false" } }
+        );
         res.status(400).json({ msg: "Booking Unsuccessful" });
       }
     }

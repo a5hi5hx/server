@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const User = require("./users.model");
+const UserDetail = require("./user.detail.model");
 const Pets = require("./pets.model");
 
 const Booking = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: User,
+    ref: UserDetail,
     required: true,
   },
   pet: {

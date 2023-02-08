@@ -13,7 +13,6 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
-
   breed: {
     type: String,
     required: true,
