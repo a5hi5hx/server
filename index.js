@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const uri =
-  "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority";
+// const uri =
+//   "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority";
 //const uri = process.env.url;
 mongoose.set("strictQuery", true);
 
@@ -23,9 +25,13 @@ const connectDB = async () => {
 
 //middlewares
 app.use(express.json());
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
 const authUserRoute = require("./routes/user/authUser");
 app.use("/authuser", authUserRoute);
+const passwordLink = require("./routes/user/passwordReset");
+app.use("/password", passwordLink);
 const viewRoute = require("./routes/pets/returnAll");
 app.use("/returnpets", viewRoute);
 const addRR = require("./routes/pets/add");

@@ -32,12 +32,14 @@
 
 // module.exports = mongoose.model("UserDetails", UserDetails);
 const mongoose = require("mongoose");
+
+const User = require("../models/users.model");
 const Schema = mongoose.Schema;
 
 const UserDetails = Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  _id: {
+    type: Schema.Types.ObjectId,
+    ref: User,
     required: true,
   },
   name: {
