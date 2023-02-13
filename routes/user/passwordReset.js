@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const dotenv = require("dotenv");
 dotenv.config();
+
 const User = require("../../models/users.model");
 const OAuth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
@@ -33,16 +34,14 @@ router.route("/forgot-password").post(async (req, res, next) => {
 
   const token = jwt.sign(payload, secret, { expiresIn: "10m" });
   const link = `https://talented-slug-sun-hat.cyclic.app/password/reset-password/${user._id}/${token}`;
-  sendMail2(email, link)
-    .then(
-      (result) => console.log("Email sent...", result),
-      res.status(201).json({ msg: "Email sent Success. Check Mail" })
-    )
-    .catch(
-      (error) => console.log(error.message),
-      res.status(400).json({ msg: "Error in sending Link" })
-    );
-  return res.status(201).json({ msg: "Reset Link sent to email" });
+
+  try {
+    sendMail2(email, link);
+    return res.status(201).json({ msg: "Reset Link sent to email" });
+  } catch (err) {
+    return res.status(401).json({ msg: `Error occured${err.message}` });
+  }
+  //return res.status(201).json({ msg: "Reset Link sent to email" });
 });
 
 router.route("/reset-password/:id/:token").get(async (req, res, next) => {
