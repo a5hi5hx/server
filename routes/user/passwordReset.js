@@ -1,11 +1,11 @@
-const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
-
+const dotenv = require("dotenv");
+dotenv.config();
 const User = require("../../models/users.model");
 const OAuth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
@@ -15,7 +15,7 @@ const OAuth2Client = new google.auth.OAuth2(
 OAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 //router.route("/forgot-password").get(req, res, (next) => {});
 
-router.route("/forgot-password1").post(async (req, res, next) => {
+router.route("/forgot-password").post(async (req, res, next) => {
   const { email } = req.body;
   console.log(email);
 
