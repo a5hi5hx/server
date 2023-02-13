@@ -37,7 +37,9 @@ router.route("/forgot-password").post(async (req, res, next) => {
 
   try {
     sendMail2(email, link);
-    return res.status(201).json({ msg: "Reset Link sent to email" });
+    return res
+      .status(201)
+      .json({ msg: "Reset Link sent to email. Check Mail." });
   } catch (err) {
     return res.status(401).json({ msg: `Error occured${err.message}` });
   }
