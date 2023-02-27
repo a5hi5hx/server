@@ -83,50 +83,50 @@ router.post("/addDetails", async (req, res) => {
   }
 });
 
-router.get("/:userId", async (req, res) => {
-  try {
-    const user = await UserDetails.findById(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      phone: user.phone,
-      mobile: user.mobile,
-      address: user.address,
-      //email: user.email,
-    });
-  } catch (error) {
-    if (error instanceof mongoose.CastError) {
-      return res.status(400).json({ message: "Invalid user ID" });
-    }
-    res.status(500).json({ error: error.message });
-  }
-});
+// router.get("/:userId", async (req, res) => {
+//   try {
+//     const user = await UserDetails.findById(req.params.userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+//     res.status(200).json({
+//       _id: user._id,
+//       name: user.name,
+//       phone: user.phone,
+//       mobile: user.mobile,
+//       address: user.address,
+//       //email: user.email,
+//     });
+//   } catch (error) {
+//     if (error instanceof mongoose.CastError) {
+//       return res.status(400).json({ message: "Invalid user ID" });
+//     }
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
-router.get("/returnuser", async (req, res) => {
-  try {
-    const userId = req.query.userId;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+// router.get("/returnuser", async (req, res) => {
+//   try {
+//     const userId = req.query.userId;
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
 
-    const userDetails = await UserDetails.findOne({ _id: userId });
-    // return res.status(200).json({ user, userDetails });
-    res.status(200).json({
-      //_id: userDetails._id,
-      username: user.username,
-      name: userDetails.name,
-      phone: userDetails.phone,
-      mobile: userDetails.mobile,
-      address: userDetails.address,
-      email: user.email,
-    });
-  } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     const userDetails = await UserDetails.findOne({ _id: userId });
+//     // return res.status(200).json({ user, userDetails });
+//     res.status(200).json({
+//       _id: userDetails._id,
+//       username: user.username,
+//       name: userDetails.name,
+//       phone: userDetails.phone,
+//       mobile: userDetails.mobile,
+//       address: userDetails.address,
+//       email: user.email,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 module.exports = router;

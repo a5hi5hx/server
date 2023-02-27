@@ -16,16 +16,28 @@ cloudinary.config({
 });
 
 router.route("/addP").post(upload.single("image"), async (req, res) => {
-  const { uid, nickname, breed, health, age, weight, color, location } =
-    req.body;
+  const {
+    uid,
+    nickname,
+    category,
+    breed,
+    health,
+    age,
+    weight,
+    color,
+    location,
+  } = req.body;
 
   var image = req.file;
 
   const bookedFlag = "false";
+  const stars = 0;
+  const gender = "male";
 
   if (
     !uid ||
     !nickname ||
+    !category ||
     !breed ||
     !age ||
     !weight ||
@@ -52,6 +64,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
           const newP = new Pet({
             uid,
             nickname,
+            category,
             breed,
             age,
             weight,
@@ -60,6 +73,8 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
             location,
             image: pes.url,
             bookedFlag,
+            stars,
+            gender,
           });
           console.log("add3");
 

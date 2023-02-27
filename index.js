@@ -34,6 +34,8 @@ const passwordLink = require("./routes/user/passwordReset");
 app.use("/password", passwordLink);
 const viewRoute = require("./routes/pets/returnAll");
 app.use("/returnpets", viewRoute);
+const uDetails = require("./routes/user/userDetails");
+app.use("/user", uDetails);
 const addRR = require("./routes/pets/add");
 app.use("/add", addRR);
 app.route("/").get((req, res) => res.json("You are connected to Server."));

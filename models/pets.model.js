@@ -13,6 +13,11 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
+  category: {
+    type: String,
+    required: true,
+    unique: false,
+  },
   breed: {
     type: String,
     required: true,
@@ -49,6 +54,16 @@ const Pets = Schema({
   },
   bookedFlag: {
     type: String,
+    unique: false,
+  },
+  stars: {
+    type: Number,
+    min: 0,
+    unique: false,
+  },
+  gender: {
+    type: String,
+    required: true,
     unique: false,
   },
 });

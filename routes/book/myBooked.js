@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const Pet = require("../../models/pets.model");
+const User = require("../../models/users.model");
 const Booking = require("../../models/book.model");
 
 router.get("/mybookings", async (req, res) => {

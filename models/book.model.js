@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const UserDetail = require("./user.detail.model");
+const User = require("./users.model");
+
 const Pets = require("./pets.model");
 
 const Booking = new Schema({
