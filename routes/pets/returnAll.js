@@ -15,4 +15,13 @@ router.route("/viewall").get((req, res) => {
   });
 });
 
+router.get("/pets/:category", async (req, res) => {
+  try {
+    const pets = await Pets.find({ category: req.params.category });
+    res.json(pets);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
