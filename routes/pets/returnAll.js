@@ -18,7 +18,7 @@ router.route("/viewall").get((req, res) => {
 router.post("/pets", async (req, res) => {
   try {
     const category = req.body.category;
-    const pets = await Pets.find({ category: category });
+    const pets = await Pets.find({ category: category, bookedFlag: "false" });
     res.json(pets);
   } catch (err) {
     console.error(err.message);
