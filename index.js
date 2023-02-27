@@ -43,7 +43,7 @@ const bookRoute = require("./routes/book/booking");
 app.use("/book", bookRoute);
 // const addRoute = require("./routes/pets/add_pets");
 // app.use("addpets", addRoute);
-const mybookings = require("./routes/book/mybookings");
+const mybookings = require("./routes/book/bookings_actions");
 app.use("/list", mybookings);
 // app.listen(5000, () => console.log("app started on", Port));
 connectDB().then(() => {

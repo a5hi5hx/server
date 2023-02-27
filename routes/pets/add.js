@@ -32,7 +32,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
 
   const bookedFlag = "false";
   const stars = 0;
-  const gender = "male";
+  //const gender = "male";
 
   if (
     !uid ||
