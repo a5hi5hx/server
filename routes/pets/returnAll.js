@@ -14,7 +14,7 @@ router.route("/viewall").get((req, res) => {
     }
   });
 });
-router.route("/pets/:category").get((req, res) => {
+router.route("/pets/:category").get(async (req, res) => {
   try {
     const pets = await Pets.find({ category: req.params.category });
     res.json(pets);
@@ -22,6 +22,5 @@ router.route("/pets/:category").get((req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
