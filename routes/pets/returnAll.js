@@ -14,12 +14,15 @@ router.route("/viewall").get((req, res) => {
     }
   });
 });
-router.route("/pets/:category").get(async (req, res) => {
+
+router.post("/pets", async (req, res) => {
   try {
-    const pets = await Pets.find({ category: req.params.category });
+    const category = req.body.category;
+    const pets = await Pets.find({ category: category });
     res.json(pets);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 });
 
