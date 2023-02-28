@@ -26,4 +26,15 @@ router.post("/pets", async (req, res) => {
   }
 });
 
+router.put("/pets/increase-stars", async (req, res) => {
+  try {
+    const pet = await Pets.findById(req.body.id);
+    pet.stars++;
+    await pet.save();
+    res.json(pet.stars);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
 module.exports = router;
