@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-
+const User = require("../models/user.detail.model");
 const Schema = mongoose.Schema;
 
 const Pets = Schema({
   uid: {
     type: Schema.Types.ObjectId,
+    ref: User,
     required: true,
     unique: false,
   },

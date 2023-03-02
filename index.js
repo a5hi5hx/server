@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 require("dotenv").config();
+// const a = ufqdpkaoabviyzje;
 const app = express();
 const PORT = process.env.PORT || 5000;
 // const uri =
@@ -45,6 +46,8 @@ app.use("/book", bookRoute);
 // app.use("addpets", addRoute);
 const mybookings = require("./routes/book/bookings_actions");
 app.use("/list", mybookings);
+const verification = require("./routes/user/verifyuser");
+app.use("/verify", verification);
 // app.listen(5000, () => console.log("app started on", Port));
 connectDB().then(() => {
   app.listen(PORT, () => {

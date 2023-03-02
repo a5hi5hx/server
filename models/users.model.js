@@ -27,6 +27,11 @@ const User = Schema({
       message: "please enter valid email address",
     },
   },
+  isVerified: {
+    type: String,
+    unique: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("User", User);

@@ -2,8 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
-const User = require("../../models/users.model");
-
+//const User = require("../../models/users.model");
+const verify = require("./verifyuser");
 const authrouter = express.Router();
 //const PORT = process.env.PORT || 5000;
 const router = express.Router();
@@ -16,7 +16,7 @@ router.route("/signup").post(async (req, res) => {
 
   try {
     console.log("inside register");
-
+    const isVerified = "false";
     const { id, username, email, token, password } = req.body;
 
     const existingUsername = await User.findOne({ username });
@@ -36,6 +36,7 @@ router.route("/signup").post(async (req, res) => {
       username,
       password: hashedPassword,
       email,
+      isVerified,
     });
     user = await user.save();
     res.json(user);

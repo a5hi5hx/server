@@ -36,7 +36,43 @@ router.route("/forgot-password").post(async (req, res, next) => {
   const link = `https://talented-slug-sun-hat.cyclic.app/password/reset-password/${user._id}/${token}`;
 
   try {
-    sendMail2(email, link);
+    try {
+      const transport = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+          user: "adoptmenepal@gmail.com",
+          pass: "qzrhbacyrzpaaboh",
+        },
+      });
+      const mailOptions = {
+        from: "AdoptMe <adoptmenepal@gmail.com>",
+        to: userEmail,
+        subject: "Password Reset Request",
+        text: `Your one time password reset link is ${link}. Ignore If you are not aware. Cheers...`,
+        html: `<h2>Your one time password reset link is<p> ${link} <p> Ignore If you are not aware. Cheers...</h2>`,
+      };
+
+      transport.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          console.warn(err);
+          return res.status(401).json({ msg: "Error sending link" });
+        } else {
+          console.log("sent");
+          return res
+            .status(201)
+            .json({ msg: "Reset Link sent to email. Check Mail." });
+        }
+      });
+      // return res
+      //   .status(201)
+      //   .json({ msg: "Reset Link sent to email. Check Mail." });
+    } catch (error) {
+      console.log(error);
+    }
+
     return res
       .status(201)
       .json({ msg: "Reset Link sent to email. Check Mail." });
