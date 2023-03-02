@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
 require("dotenv").config();
 // const a = ufqdpkaoabviyzje;
 const app = express();

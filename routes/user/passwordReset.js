@@ -3,17 +3,9 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const User = require("../../models/users.model");
-const OAuth2Client = new google.auth.OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
-  process.env.REDIRECT_URI
-);
-OAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 //router.route("/forgot-password").get(req, res, (next) => {});
 
 router.route("/forgot-password").post(async (req, res, next) => {
@@ -132,32 +124,4 @@ router.route("/reset-password/:id/:token").post(async (req, res, next) => {
   }
 });
 
-async function sendMail2(userEmail, link) {
-  try {
-    const accessToken = await OAuth2Client.getAccessToken();
-
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: "adoptmenepal@gmail.com",
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: accessToken,
-      },
-    });
-    const mailOptions = {
-      from: "AdoptMe <adoptmenepal@gmail.com>",
-      to: userEmail,
-      subject: "Password Reset Request",
-      text: `Your one time password reset link is ${link}. Ignore If you are not aware. Cheers...`,
-      html: `<h2>Your one time password reset link is<p> ${link} <p> Ignore If you are not aware. Cheers...</h2>`,
-    };
-    const result = await transport.sendMail(mailOptions);
-  } catch (error) {
-    console.log(error.message);
-    return error.message;
-  }
-}
 module.exports = router;
