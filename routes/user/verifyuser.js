@@ -27,7 +27,7 @@ router.route("/verifyUser").post(async (req, res, next) => {
     id: user._id,
   };
   const token = jwt.sign(payload, secret);
-  const link = `https://talented-slug-sun-hat.cyclic.app/verify/verifyUser/${user._id}/${token}`;
+  const link = `https://talented-slug-sun-hat.cyclic.app/verify/verifyUserr/${user._id}/${token}`;
   try {
     try {
       const transport = nodeMailer.createTransport({
