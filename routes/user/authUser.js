@@ -2,12 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
-//const User = require("../../models/users.model");
+const User = require("../../models/users.model");
 const verify = require("./verifyuser");
 const authrouter = express.Router();
 //const PORT = process.env.PORT || 5000;
 const router = express.Router();
-
+const User = require("../../models/users.model");
 //const app = express();
 
 //signup route

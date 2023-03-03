@@ -12,6 +12,7 @@ const UserDetails = Schema({
   image: {
     type: String,
     required: true,
+    unique: false,
   },
   name: {
     type: String,
