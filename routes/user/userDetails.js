@@ -65,4 +65,35 @@ router
     }
   });
 
+router.route("/returndetails").get((req, res) => {
+  UserDetails.find((err, result) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+router.post("/details", async (req, res) => {
+  try {
+    const uid = req.body.uid;
+    const user = UserDetails.find({ _id: uid }, (err, result) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(result);
+      }
+    });
+    // if (user) {
+    //   res.json(user);
+    // } else {
+    //   res.json({ msg: "Not Found" });
+    // }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

@@ -18,7 +18,7 @@ router.get("/myBooking", async (req, res) => {
 });
 
 router.get("/myPetsBooked", async (req, res) => {
-  const userId = req.query.userid;
+  const userId = req.params.userid;
   try {
     // Find all pets owned by the user
     const pets = await Pets.find({ uid: userId });
