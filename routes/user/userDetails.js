@@ -29,9 +29,10 @@ router
       res.status(400).json({ msg: "Image is required" });
     }
     try {
-      const uiu = await cloudinary.v2.uploader
+      const uidu = await cloudinary.v2.uploader
         .upload_stream({ resource_type: "image" }, (err, uiu) => {
           if (uiu) {
+            const urli = uiu.url;
             const newUser = new UserDetails({
               _id: uid,
               name,
@@ -44,9 +45,15 @@ router
             newUser
               .save()
               .then((newUser) => {
-                res
-                  .status(201)
-                  .json({ msg: "User Details Saved Successfully.", newUser });
+                res.status(201).json({
+                  msg: "User Details Saved Successfully.",
+                  name,
+                  phone,
+                  mobile,
+                  address,
+                  email,
+                  urli,
+                });
               })
               .catch((err) => {
                 console.log(err);
