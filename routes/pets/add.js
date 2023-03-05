@@ -21,6 +21,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
     nickname,
     category,
     breed,
+    gender,
     health,
     age,
     weight,
@@ -38,6 +39,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
     !uid ||
     !nickname ||
     !category ||
+    !gender ||
     !breed ||
     !age ||
     !weight ||
