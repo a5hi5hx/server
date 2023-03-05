@@ -53,54 +53,52 @@ router.get("/myBooking", async (req, res) => {
   }
 });
 
-router.get("/myPetsBooked", async (req, res) => {
-  const userId = req.query.userid;
-  try {
-    console.log(userId);
+// router.get("/myPetsBooked", async (req, res) => {
+//   const userId = req.query.userid;
+//   try {
+//     console.log(userId);
 
-    // Find all pets owned by the user
-    const pets = await Pets.find({ uid: userId, bookedFlag: "true" });
-    console.log(pets);
-    // const pid = pets["_id"];
-    const pid = pets[0]._id;
-    console.log(pid);
+//     // Find all pets owned by the user
+//     const pets = await Pets.find({ uid: userId, bookedFlag: "true" });
+//     console.log(pets);
+//     // const pid = pets["_id"];
+//     const pid = pets[0]._id;
+//     console.log(pid);
 
-    // Get all bookings for the user's pets
-    const bookings = await Booking.find({ pet: pid }).populate("user pet");
-    console.log(bookings);
-    if (bookings.length > 0) {
-      res.json(bookings);
-    } else {
-      res.status(404).json({ message: "No bookings found" });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     // Get all bookings for the user's pets
+//     const bookings = await Booking.find({ pet: pid }).populate("user pet");
+//     console.log(bookings);
+//     if (bookings.length > 0) {
+//       res.json(bookings);
+//     } else {
+//       res.status(404).json({ message: "No bookings found" });
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 router.get("/mypetsBooked", async (req, res) => {
   const userId = req.query.userid;
   try {
     // Find all pets owned by the user
     const pets = await Pets.find({ uid: userId, bookedFlag: "true" });
-    console.log(pets);
 
     const bookings = [];
 
     // Loop through each pet and get its bookings
     for (const pet of pets) {
       const pid = pet._id;
-      console.log(pid);
 
       // Get all bookings for the pet
       const petBookings = await Booking.find({ pet: pid }).populate("user pet");
-      console.log(petBookings);
 
       // Add the pet's bookings to the overall list of bookings
       bookings.push(...petBookings);
     }
 
     if (bookings.length > 0) {
+      bookings.reverse();
       res.json(bookings);
     } else {
       res.status(404).json({ message: "No bookings found" });
@@ -126,6 +124,36 @@ router.delete("/:bookingId", async (req, res) => {
     pet.bookedFlag = true;
     await pet.save();
     res.status(500).json({ message: "Booking deletion failed" });
+  }
+});
+
+// router.get("/bookings/:userId", async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     const bookings = await Booking.find({ user: userId })
+//       .populate("user")
+//       .populate("pet")
+//       .exec();
+
+//     res.status(200).json(bookings);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// });
+router.get("/myBookings/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const bookings = await Booking.find({ user: userId })
+      .populate("user", "-__v")
+      .populate("pet", "-__v")
+      .select("-__v")
+      .exec();
+    bookings.reverse();
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
