@@ -37,4 +37,16 @@ router.put("/pets/increase-stars", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+router.route("/myPets/:uid").get((req, res) => {
+  const { uid } = req.params;
+  Pets.find({ uid: uid }, (err, result) => {
+    if (err) {
+      res.json({ msg: "Empty" });
+      throw err;
+    } else {
+      res.json(result);
+    }
+  });
+});
 module.exports = router;
