@@ -50,7 +50,7 @@ router.route("/signin").post(async (req, res) => {
   try {
     const { id, username, email, password } = req.body;
     console.log("inside register");
-    const isDetails = "";
+    let isDetails = "";
     const user = await User.findOne({ username });
     if (!user) {
       return res
@@ -59,12 +59,12 @@ router.route("/signin").post(async (req, res) => {
     }
     console.log("inside register");
 
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Password Incorrect" });
     }
 
-    const details = UserDetails.findOne({ _id: user._id });
+    const details = await UserDetails.findById({ _id: user._id });
     if (!details) {
       isDetails = "no";
       return res.status(200).json({ token, ...user._doc, isDetails });
@@ -74,20 +74,18 @@ router.route("/signin").post(async (req, res) => {
     const address = details.address;
     const phone = details.phone;
     const mobile = details.mobile;
-
+    const image = details.image;
     const token = jwt.sign({ id: user._id }, "passwordKey");
-    return res
-      .status(200)
-      .json({
-        token,
-        ...user._doc,
-        isDetails,
-        image,
-        name,
-        address,
-        phone,
-        mobile,
-      });
+    return res.status(200).json({
+      token,
+      ...user._doc,
+      isDetails,
+      image,
+      name,
+      address,
+      phone,
+      mobile,
+    });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
