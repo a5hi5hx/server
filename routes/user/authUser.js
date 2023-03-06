@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const User = require("../../models/users.model");
+const UserDetails = require("../../models/user.detail.model");
 const verify = require("./verifyuser");
 const authrouter = express.Router();
 //const PORT = process.env.PORT || 5000;
@@ -49,7 +50,7 @@ router.route("/signin").post(async (req, res) => {
   try {
     const { id, username, email, password } = req.body;
     console.log("inside register");
-
+    const isDetails = "";
     const user = await User.findOne({ username });
     if (!user) {
       return res
@@ -63,8 +64,30 @@ router.route("/signin").post(async (req, res) => {
       return res.status(400).json({ msg: "Password Incorrect" });
     }
 
+    const details = UserDetails.findOne({ _id: user._id });
+    if (!details) {
+      isDetails = "no";
+      return res.status(200).json({ token, ...user._doc, isDetails });
+    }
+    isDetails = "yes";
+    const name = details.name;
+    const address = details.address;
+    const phone = details.phone;
+    const mobile = details.mobile;
+
     const token = jwt.sign({ id: user._id }, "passwordKey");
-    return res.status(200).json({ token, ...user._doc });
+    return res
+      .status(200)
+      .json({
+        token,
+        ...user._doc,
+        isDetails,
+        image,
+        name,
+        address,
+        phone,
+        mobile,
+      });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
