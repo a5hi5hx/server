@@ -67,7 +67,7 @@ router.route("/signin").post(async (req, res) => {
     const details = await UserDetails.findById({ _id: user._id });
     if (!details) {
       isDetails = "no";
-      return res.status(200).json({ token, ...user._doc, isDetails });
+      return res.status(200).json({ ...user._doc, isDetails });
     }
     isDetails = "yes";
     const name = details.name;
