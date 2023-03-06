@@ -54,15 +54,9 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
   }
 
   try {
-    console.log("add1");
-
     const pes = await cloudinary.v2.uploader
       .upload_stream({ resource_type: "image" }, (err, pes) => {
-        console.log("add2");
-
         if (pes) {
-          console.log("add4");
-
           const newP = new Pet({
             uid,
             nickname,
@@ -78,7 +72,6 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
             stars,
             gender,
           });
-          console.log("add3");
 
           newP
             .save()

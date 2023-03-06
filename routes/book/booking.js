@@ -8,16 +8,18 @@ router.post("/bookPets", async (req, res) => {
   try {
     const { userID, petID, date, time } = req.body;
 
-    const pet = await Pets.find({ _id: petID });
+    const pet = await Pets.findById({ _id: petID });
 
     if (pet.bookedFlag == "true") {
       return res.status(400).json({ msg: "Already Booked" });
     } else {
-      const isBooked = await Pets.findByIdAndUpdate(
+      const peti = await Pets.findByIdAndUpdate(
         { _id: petID },
         { $set: { bookedFlag: "true" } }
       );
-      if (isBooked) {
+      // const pet = await Pets.findById({ _id: petID });
+      // pet.bookedFlag = true;
+      if (peti) {
         const newBooking = new Booking({
           user: userID,
           pet: petID,
