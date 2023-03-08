@@ -42,7 +42,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
       });
       const mailOptions = {
         from: "AdoptMe <adoptmenepal@gmail.com>",
-        to: userEmail,
+        to: email,
         subject: "Password Reset Request",
         text: `Your one time password reset link is ${link}. Ignore If you are not aware. Cheers...`,
         html: `<h2>Your one time password reset link is<p> ${link} <p> Ignore If you are not aware. Cheers...</h2>`,
