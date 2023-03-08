@@ -13,10 +13,7 @@ const router = express.Router();
 
 //signup route
 router.route("/signup").post(async (req, res) => {
-  console.log("inside register");
-
   try {
-    console.log("inside register");
     const isVerified = "false";
     const { id, username, email, token, password } = req.body;
 
@@ -49,7 +46,7 @@ router.route("/signup").post(async (req, res) => {
 router.route("/signin").post(async (req, res) => {
   try {
     const { id, username, email, password } = req.body;
-    console.log("inside register");
+
     let isDetails = "";
     const user = await User.findOne({ username });
     if (!user) {
@@ -57,7 +54,6 @@ router.route("/signin").post(async (req, res) => {
         .status(400)
         .json({ msg: "User with this username doesnt exists." });
     }
-    console.log("inside register");
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {

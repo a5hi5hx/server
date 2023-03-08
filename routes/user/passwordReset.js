@@ -4,13 +4,14 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const User = require("../../models/user.detail.model");
 dotenv.config();
 
 //router.route("/forgot-password").get(req, res, (next) => {});
 
 router.route("/forgot-password").post(async (req, res, next) => {
   const { email } = req.body;
-  console.log(email);
+  //console.log(email);
 
   //userexists
   const user = await User.findOne({ email });
@@ -50,7 +51,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
       transport.sendMail(mailOptions, function (err, info) {
         if (err) {
           console.warn(err);
-          return res.status(401).json({ msg: "Error sending link" });
+          return res.status(400).json({ msg: "Error sending link" });
         } else {
           console.log("sent");
           return res
@@ -62,6 +63,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
       //   .status(201)
       //   .json({ msg: "Reset Link sent to email. Check Mail." });
     } catch (error) {
+      return res.status(500).json({ msg: error.message });
       console.log(error);
     }
 
@@ -69,7 +71,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
       .status(201)
       .json({ msg: "Reset Link sent to email. Check Mail." });
   } catch (err) {
-    return res.status(401).json({ msg: `Error occured${err.message}` });
+    return res.status(500).json({ msg: `Error occured${err.message}` });
   }
   //return res.status(201).json({ msg: "Reset Link sent to email" });
 });
