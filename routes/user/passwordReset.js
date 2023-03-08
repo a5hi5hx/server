@@ -53,7 +53,6 @@ router.route("/forgot-password").post(async (req, res, next) => {
           console.warn(err);
           return res.status(400).json({ msg: "Error sending link" });
         } else {
-          console.log("sent");
           return res
             .status(201)
             .json({ msg: "Reset Link sent to email. Check Mail." });
@@ -67,9 +66,9 @@ router.route("/forgot-password").post(async (req, res, next) => {
       console.log(error);
     }
 
-    return res
-      .status(201)
-      .json({ msg: "Reset Link sent to email. Check Mail." });
+    // return res
+    //   .status(201)
+    //   .json({ msg: "Reset Link sent to email. Check Mail." });
   } catch (err) {
     return res.status(500).json({ msg: `Error occured${err.message}` });
   }
