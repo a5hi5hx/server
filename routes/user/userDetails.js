@@ -20,7 +20,7 @@ router
   .post(upload.single("image"), async (req, res) => {
     const { uid, name, phone, mobile, address, email } = req.body;
     var image = req.file;
-    if (!uid || !name || !phone || !mobile || !address || !email) {
+    if (!uid || !name || !phone || !address || !email) {
       return res
         .status(400)
         .json({ error: "Please provide all required fields." });

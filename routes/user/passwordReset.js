@@ -37,7 +37,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
         requireTLS: true,
         auth: {
           user: "adoptmenepal@gmail.com",
-          pass: "qzrhbacyrzpaaboh",
+          pass: process.env.password,
         },
       });
       const mailOptions = {

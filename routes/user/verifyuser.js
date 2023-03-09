@@ -37,7 +37,7 @@ router.route("/verifyUser").post(async (req, res, next) => {
         requireTLS: true,
         auth: {
           user: "adoptmenepal@gmail.com",
-          pass: "qzrhbacyrzpaaboh",
+          pass: process.env.password,
         },
       });
       var mailOptions = {
@@ -59,9 +59,6 @@ router.route("/verifyUser").post(async (req, res, next) => {
             .json({ msg: "Reset Link sent to email. Check Mail." });
         }
       });
-      // return res
-      //   .status(201)
-      //   .json({ msg: "Reset Link sent to email. Check Mail." });
     } catch (error) {
       console.log(error);
     }
