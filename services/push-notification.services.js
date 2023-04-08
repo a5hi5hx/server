@@ -6,7 +6,7 @@ const apiKey = process.env.one_signal_ApiKey;
 async function sendNotification(data, callback) {
   var headers = {
     "Content-Type": "application/json; charset=utf-8",
-    Authorization: "Basic" + apiKey,
+    Authorization: "Basic " + apiKey,
   };
   var options = {
     host: "onesignal.com",
