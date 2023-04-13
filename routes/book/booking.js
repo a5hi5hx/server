@@ -1,4 +1,9 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
+const appId = process.env.one_signal_appID;
+const apiKey = process.env.one_signal_ApiKey;
+const pushNotificationService = require("../../services/push-notification.services");
 const Booking = require("../../models/book.model");
 const Pets = require("../../models/pets.model");
 const UserDetails = require("../../models/user.detail.model");
@@ -6,7 +11,7 @@ const router = express.Router();
 
 router.post("/bookPets", async (req, res) => {
   try {
-    const { userID, petID, date, time } = req.body;
+    const { userID, petID, date, time, playerId } = req.body;
 
     const pet = await Pets.findById({ _id: petID });
 
@@ -27,6 +32,7 @@ router.post("/bookPets", async (req, res) => {
           time: time,
         });
         if (newBooking.save()) {
+          const ari = sendBookNotification(playerId);
           res.json({ msg: "Booking Successful" });
         }
       } else {
@@ -54,7 +60,25 @@ router.get("/myBooking", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+function sendBookNotification(playerId) {
+  var message = {
+    app_id: appId,
+    contents: { en: "Your pet has been booked. View the booking now." },
+    //included_segments: ["included_palyer_ids"],
+    include_player_ids: [playerId],
+    content_available: true,
+    small_icon: "ic_notification_icon",
+    data: {
+      PushTitle: "AdoptMe-Rehome a Pet",
+    },
+  };
 
+  pushNotificationService.sendNotification(message, (error, results) => {
+    if (error) {
+      return next(error);
+    }
+  });
+}
 // router.get("/myPetsBooked", async (req, res) => {
 //   const userId = req.query.userid;
 //   try {

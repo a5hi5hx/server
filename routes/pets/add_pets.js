@@ -8,6 +8,7 @@ dotenv.config();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const mongoose = require("mongoose");
+const notificationser = require("../../controllers/push-notification.controller");
 
 // Cloudinary configuration
 cloudinary.config({
@@ -61,6 +62,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
           newPet
             .save()
             .then((pet) => {
+              notificationser.SendAddNotification;
               return res.status(201).json({ msg: "Pet added successfully" });
             })
             .catch((err) => {

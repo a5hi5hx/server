@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("cloudinary");
@@ -7,7 +8,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
+const appId = process.env.one_signal_appID;
+const apiKey = process.env.one_signal_ApiKey;
+const pushNotificationService = require("../../services/push-notification.services");
 // Cloudinary configuration
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -76,6 +79,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
           newP
             .save()
             .then((newP) => {
+              const ari = sendAddNotification();
               res.status(201).json({ msg: "Pet added successfully" });
             })
             .catch((err) => {
@@ -93,4 +97,28 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+function sendAddNotification() {
+  var message = {
+    app_id: appId,
+    contents: { en: "New Pet Added. Tap to adopt!!" },
+    included_segments: ["All"],
+    content_available: true,
+    small_icon: "ic_notification_icon",
+    data: {
+      PushTitle: "AdoptMe-Rehome a Pet",
+    },
+  };
+
+  pushNotificationService.sendNotification(message, (error, results) => {
+    if (error) {
+      return next(error);
+    }
+    console.log(results);
+    // return res.status(200).send({
+    //   message: "success",
+    //   data: results,
+    // });
+  });
+}
+
 module.exports = router;

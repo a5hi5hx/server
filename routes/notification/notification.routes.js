@@ -4,11 +4,11 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 router.get(
-  "/sendNotificationToDevice",
-  pushNotificationController.SendNotification
+  "/sendAddNotification",
+  pushNotificationController.SendAddNotification
 );
 router.post(
   "/sendNotificationToDevice",
-  pushNotificationController.SendNotificationToDevice
+  pushNotificationController.SendBookNotification
 );
 module.exports = router;
