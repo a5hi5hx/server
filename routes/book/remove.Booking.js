@@ -4,15 +4,18 @@ const mongoose = require("mongoose");
 const Booking = require("../../models/book.model");
 const Pet = require("../../models/pets.model");
 
-router.delete("/:bookingId", async (req, res) => {
+router.post("/removeBooking", async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.bookingId);
+    const booking = await Booking.findById(req.body.bookingId);
+    if (!booking) {
+      res.status(500).json({ message: "Booking deletion failed" });
+    }
     const pet = await Pet.findById(booking.pet._id);
 
     pet.bookedFlag = false;
     await pet.save();
 
-    await Booking.findByIdAndDelete(req.params.bookingId);
+    await Booking.findByIdAndDelete(req.body.bookingId);
 
     res.json({ message: "Booking deleted successfully" });
   } catch (err) {

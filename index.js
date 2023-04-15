@@ -49,6 +49,8 @@ const verification = require("./routes/user/verifyuser");
 app.use("/verify", verification);
 const notify = require("./routes/notification/notification.routes");
 app.use("/notify", notify);
+const removeP = require("./routes/pets/delete");
+app.use("/delete", removeP);
 // app.listen(5000, () => console.log("app started on", Port));
 connectDB().then(() => {
   app.listen(PORT, () => {
