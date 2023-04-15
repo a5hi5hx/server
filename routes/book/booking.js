@@ -11,10 +11,14 @@ const router = express.Router();
 
 router.post("/bookPets", async (req, res) => {
   try {
-    const { userID, petID, date, time, playerId } = req.body;
+    const { userID, petID, date, time } = req.body;
 
-    const pet = await Pets.findById({ _id: petID });
-
+    const pet = await Pets.findById(petID);
+    console.log(pet);
+    if (!pet) {
+      return res.status(400).json({ msg: "Pet not found" });
+    }
+    const playerId = pet.playerId;
     if (pet.bookedFlag == "true") {
       return res.status(400).json({ msg: "Already Booked" });
     } else {
@@ -44,6 +48,7 @@ router.post("/bookPets", async (req, res) => {
       }
     }
   } catch (e) {
+    console.log(e);
     res.status(500).json({ error: e.message });
   }
 });

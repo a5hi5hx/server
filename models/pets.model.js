@@ -67,6 +67,11 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
+  playerId: {
+    type: String,
+    required: true,
+    unique: false,
+  },
 });
 
 module.exports = mongoose.model("Pets", Pets);

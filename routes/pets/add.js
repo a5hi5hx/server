@@ -30,6 +30,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
     weight,
     color,
     location,
+    playerId,
   } = req.body;
 
   var image = req.file;
@@ -74,6 +75,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
             bookedFlag,
             stars,
             gender,
+            playerId,
           });
 
           newP
