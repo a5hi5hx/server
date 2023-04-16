@@ -36,6 +36,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
   var image = req.file;
 
   const bookedFlag = "false";
+  const displayFlag = "true";
   const stars = 0;
   //const gender = "male";
 
@@ -76,6 +77,7 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
             stars,
             gender,
             playerId,
+            displayFlag,
           });
 
           newP

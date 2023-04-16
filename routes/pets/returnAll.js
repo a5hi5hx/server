@@ -6,7 +6,7 @@ const router = express.Router();
 router.route("/viewall").get((req, res) => {
   console.log("inside viewall");
 
-  Pets.find({ bookedFlag: "false" }, (err, result) => {
+  Pets.find({ bookedFlag: "false", displayFlag: "true" }, (err, result) => {
     if (err) {
       throw err;
     } else {
@@ -19,7 +19,11 @@ router.route("/viewall").get((req, res) => {
 router.post("/pets", async (req, res) => {
   try {
     const category = req.body.category;
-    const pets = await Pets.find({ category: category, bookedFlag: "false" });
+    const pets = await Pets.find({
+      category: category,
+      bookedFlag: "false",
+      displayFlag: "true",
+    });
     pets.reverse();
     res.json(pets);
   } catch (err) {

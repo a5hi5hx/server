@@ -72,6 +72,10 @@ const Pets = Schema({
     required: true,
     unique: false,
   },
+  displayFlag: {
+    type: String,
+    unique: false,
+  },
 });
 
 module.exports = mongoose.model("Pets", Pets);
