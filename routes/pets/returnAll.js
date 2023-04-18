@@ -46,7 +46,7 @@ router.put("/pets/increase-stars", async (req, res) => {
 
 router.route("/myPets/:uid").get((req, res) => {
   const { uid } = req.params;
-  Pets.find({ uid: uid }, (err, result) => {
+  Pets.find({ uid: uid, displayFlag: "true" }, (err, result) => {
     if (err) {
       res.json({ msg: "Empty" });
       throw err;
