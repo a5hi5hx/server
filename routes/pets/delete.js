@@ -4,8 +4,6 @@ const Pets = require("../../models/pets.model");
 const Booking = require("../../models/book.model");
 const dotenv = require("dotenv");
 dotenv.config();
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 const appId = process.env.one_signal_appID;
 const apiKey = process.env.one_signal_ApiKey;
 const pushNotificationService = require("../../services/push-notification.services");
