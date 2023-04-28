@@ -2,6 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Pets = require("../../models/pets.model");
 const Booking = require("../../models/book.model");
+const dotenv = require("dotenv");
+dotenv.config();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+const appId = process.env.one_signal_appID;
+const apiKey = process.env.one_signal_ApiKey;
+const pushNotificationService = require("../../services/push-notification.services");
 
 router.post("/removePet", async (req, res) => {
   try {
@@ -28,6 +35,8 @@ router.post("/successBooking", async (req, res) => {
     await pet.save();
 
     await Booking.findByIdAndDelete(req.body.bookingId);
+    const ari = sendSuccessNotification();
+
     res.json({ message: "Congrats for successful booking" });
   } catch (err) {
     console.error(err);
@@ -43,7 +52,6 @@ router.post("/removeBooking", async (req, res) => {
     await pet.save();
 
     await Booking.findByIdAndDelete(req.body.bookingId);
-
     res.json({ message: "Booking deleted successfully" });
   } catch (err) {
     const booking = await Booking.findById(req.body.bookingId);
@@ -54,5 +62,29 @@ router.post("/removeBooking", async (req, res) => {
     res.status(500).json({ message: "Booking deletion failed" });
   }
 });
+function sendSuccessNotification() {
+  var message = {
+    app_id: appId,
+    contents: {
+      en: "Cheers.. A pet has been succesfully rehomed. Its your turn to Rehome a pet now",
+    },
+    included_segments: ["All"],
+    content_available: true,
+    small_icon: "ic_notification_icon",
+    data: {
+      PushTitle: "AdoptMe-Rehome a Pet",
+    },
+  };
 
+  pushNotificationService.sendNotification(message, (error, results) => {
+    if (error) {
+      return next(error);
+    }
+    console.log(results);
+    // return res.status(200).send({
+    //   message: "success",
+    //   data: results,
+    // });
+  });
+}
 module.exports = router;
