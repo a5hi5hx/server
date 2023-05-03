@@ -46,7 +46,7 @@ router.route("/verifyUser").post(async (req, res, next) => {
         subject: "Email Verification Link",
 
         text: `Please click on the link to verify your account ${link}.do check your spam folder.Cheers...`,
-        html: `<h2>Please click on the link to verify your account ${link} </h2><p> do check your spam folder <p> Cheers... `,
+        html: `<h2>Please click on the link to verify your account <a href=${link}>Verify Email</a> </h2><p><p> Cheers... `,
       };
       transport.sendMail(mailOptions, function (err, info) {
         if (err) {
