@@ -6,14 +6,6 @@ const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.config();
 
-//const User = require("../../models/users.model");
-// const usersModel = require("../../models/users.model");
-// const OAuth2Client = new google.auth.OAuth2(
-//   process.env.CLIENT_ID,
-//   process.env.CLIENT_SECRET,
-//   process.env.REDIRECT_URI
-// );
-// OAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 router.route("/verifyUser").post(async (req, res, next) => {
   const { email } = req.body;
 
@@ -44,8 +36,6 @@ router.route("/verifyUser").post(async (req, res, next) => {
         from: "AdoptMe Nepal <adoptmenepal@gmail.com>",
         to: email,
         subject: "Email Verification Link",
-
-        //text: `Please click on the link to verify your account ${link}.do check your spam folder.Cheers...`,
         html: `<h2>Please click on the link to verify your account <a href=${link}>Verify Email</a> </h2><p><p> Cheers... `,
       };
       transport.sendMail(mailOptions, function (err, info) {
@@ -62,10 +52,6 @@ router.route("/verifyUser").post(async (req, res, next) => {
     } catch (error) {
       console.log(error);
     }
-
-    // return res
-    //   .status(201)
-    //   .json({ msg: "Reset Link sent to email. Check Mail." });
   } catch (err) {
     return res.status(401).json({ msg: `Error occured${err.message}` });
   }

@@ -92,11 +92,6 @@ router.post("/details", async (req, res) => {
         res.json(result);
       }
     });
-    // if (user) {
-    //   res.json(user);
-    // } else {
-    //   res.json({ msg: "Not Found" });
-    // }
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

@@ -2,12 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-// const a = ufqdpkaoabviyzje;
 const app = express();
 const PORT = process.env.PORT || 5000;
-// const uri =
-//   "mongodb+srv://adoptmeUser:Ydd9r1C02Z2CnOCB@cluster0.inki3s6.mongodb.net/AdoptMe?retryWrites=true&w=majority";
-//const uri = process.env.url;
+
 mongoose.set("strictQuery", true);
 
 const connectDB = async () => {
@@ -41,8 +38,6 @@ app.use("/add", addRR);
 app.route("/").get((req, res) => res.json("You are connected to Server."));
 const bookRoute = require("./routes/book/booking");
 app.use("/book", bookRoute);
-// const addRoute = require("./routes/pets/add_pets");
-// app.use("addpets", addRoute);
 const mybookings = require("./routes/book/bookings_actions");
 app.use("/list", mybookings);
 const verification = require("./routes/user/verifyuser");
@@ -53,15 +48,9 @@ const removeP = require("./routes/pets/delete");
 app.use("/delete", removeP);
 const favourites = require("./routes/favourites/add");
 app.use("/favourites", favourites);
-// app.listen(5000, () => console.log("app started on", Port));
+
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log("listening for requests");
   });
 });
-
-// "scripts": {
-//   "test": "echo \"Error: no test specified\" && exit 1",
-//   "start": "node index",
-//   "dev": "nodemon index"
-// },

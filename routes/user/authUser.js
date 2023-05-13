@@ -4,12 +4,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const User = require("../../models/users.model");
 const UserDetails = require("../../models/user.detail.model");
-const verify = require("./verifyuser");
-const authrouter = express.Router();
-//const PORT = process.env.PORT || 5000;
 const router = express.Router();
-
-//const app = express();
 
 //signup route
 router.route("/signup").post(async (req, res) => {
@@ -107,6 +102,7 @@ router.route("/tokenValid").get(async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 });
+
 //get userdata
 router.route("/user").get(auth, async (req, res) => {
   const user = await User.findById(req.user);

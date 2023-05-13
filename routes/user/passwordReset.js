@@ -7,17 +7,15 @@ const dotenv = require("dotenv");
 const User = require("../../models/user.detail.model");
 dotenv.config();
 
-//router.route("/forgot-password").get(req, res, (next) => {});
-
 router.route("/forgot-password").post(async (req, res, next) => {
   const { email } = req.body;
-  //console.log(email);
 
   //userexists
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(400).json({ msg: "User Not Found" });
   }
+
   //onetimepasswordlinkvalid for 15min
   const secret = process.env.JWT_SECRET + user.password;
   const payload = {
@@ -44,7 +42,7 @@ router.route("/forgot-password").post(async (req, res, next) => {
         from: "AdoptMe <adoptmenepal@gmail.com>",
         to: email,
         subject: "Password Reset Request",
-        // text: `Your one time password reset link is ${link}. Ignore If you are not aware. Cheers...`,
+
         html: `<h2>Your one time password reset link is<p><a href=${link}>Reset Password</a> <p> Ignore If you are not aware. Cheers...</h2>`,
       };
 
@@ -58,21 +56,13 @@ router.route("/forgot-password").post(async (req, res, next) => {
             .json({ msg: "Reset Link sent to email. Check Mail." });
         }
       });
-      // return res
-      //   .status(201)
-      //   .json({ msg: "Reset Link sent to email. Check Mail." });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
       console.log(error);
     }
-
-    // return res
-    //   .status(201)
-    //   .json({ msg: "Reset Link sent to email. Check Mail." });
   } catch (err) {
     return res.status(500).json({ msg: `Error occured${err.message}` });
   }
-  //return res.status(201).json({ msg: "Reset Link sent to email" });
 });
 
 router.route("/reset-password/:id/:token").get(async (req, res, next) => {

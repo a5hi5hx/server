@@ -5,41 +5,18 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
-// router.route("/update").patch(async (req, res) => {
-//   try {
-//     const result = await User.findOneAndUpdate(
-//       { username: req.body.username },
-//       { $set: { password: req.body.password } }
-//     );
-//     res.json({ message: "Password updated", username: req.params.username });
-//   } catch (error) {
-//     res.status(500).json({ message: error });
-//   }
-// });
 router.route("/update").patch(async (req, res) => {
   try {
-    // Validate the request body
-    // const { error } = updatePasswordValidation(req.body);
-    // if (error) {
-    //   return res.status(400).json({ message: error.details[0].message });
-    // }
-
-    // // Check if the user is authenticated
-    // if (!req.user) {
-    //   return res.status(401).json({ message: "Unauthorized" });
-    // }
-
     // Verify the user by their username and old password
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
       return res.status(400).json({ message: "Invalid username" });
     }
-    //const hashedoldPassword = await bcrypt.hash(req.body.password, 10);
+
     const validPassword = await bcrypt.compare(
       req.body.oldPassword,
       user.password
     );
-    //console.log(hashedoldPassword);
     if (!validPassword) {
       return res.status(400).json({ message: "Invalid old password" });
     }

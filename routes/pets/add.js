@@ -38,7 +38,6 @@ router.route("/addP").post(upload.single("image"), async (req, res) => {
   const bookedFlag = "false";
   const displayFlag = "true";
   const stars = 0;
-  //const gender = "male";
 
   if (
     !uid ||
@@ -118,10 +117,6 @@ function sendAddNotification() {
       return next(error);
     }
     console.log(results);
-    // return res.status(200).send({
-    //   message: "success",
-    //   data: results,
-    // });
   });
 }
 

@@ -26,8 +26,6 @@ router.post("/bookPets", async (req, res) => {
         { _id: petID },
         { $set: { bookedFlag: "true" } }
       );
-      // const pet = await Pets.findById({ _id: petID });
-      // pet.bookedFlag = true;
       if (peti) {
         const newBooking = new Booking({
           user: userID,
@@ -84,47 +82,18 @@ function sendBookNotification(playerId) {
     }
   });
 }
-// router.get("/myPetsBooked", async (req, res) => {
-//   const userId = req.query.userid;
-//   try {
-//     console.log(userId);
-
-//     // Find all pets owned by the user
-//     const pets = await Pets.find({ uid: userId, bookedFlag: "true" });
-//     console.log(pets);
-//     // const pid = pets["_id"];
-//     const pid = pets[0]._id;
-//     console.log(pid);
-
-//     // Get all bookings for the user's pets
-//     const bookings = await Booking.find({ pet: pid }).populate("user pet");
-//     console.log(bookings);
-//     if (bookings.length > 0) {
-//       res.json(bookings);
-//     } else {
-//       res.status(404).json({ message: "No bookings found" });
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
 router.get("/mypetsBooked", async (req, res) => {
   const userId = req.query.userid;
   try {
-    // Find all pets owned by the user
     const pets = await Pets.find({ uid: userId, bookedFlag: "true" });
 
     const bookings = [];
 
-    // Loop through each pet and get its bookings
     for (const pet of pets) {
       const pid = pet._id;
 
-      // Get all bookings for the pet
       const petBookings = await Booking.find({ pet: pid }).populate("user pet");
 
-      // Add the pet's bookings to the overall list of bookings
       bookings.push(...petBookings);
     }
 
@@ -158,20 +127,6 @@ router.delete("/:bookingId", async (req, res) => {
   }
 });
 
-// router.get("/bookings/:userId", async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const bookings = await Booking.find({ user: userId })
-//       .populate("user")
-//       .populate("pet")
-//       .exec();
-
-//     res.status(200).json(bookings);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });
 router.get("/myBookings/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;

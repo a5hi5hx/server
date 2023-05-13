@@ -14,8 +14,6 @@ router.post("/removePet", async (req, res) => {
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
-
-    // await Pets.deleteOne({ _id: req.body.id });
     pet.displayFlag = "false";
     await pet.save();
     res.json({ message: "Pet removed successfully" });
@@ -79,10 +77,6 @@ function sendSuccessNotification() {
       return next(error);
     }
     console.log(results);
-    // return res.status(200).send({
-    //   message: "success",
-    //   data: results,
-    // });
   });
 }
 module.exports = router;
